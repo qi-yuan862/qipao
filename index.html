@@ -3349,7 +3349,7 @@ input:checked + .slider:before {
   flex-direction: column !important;
   justify-content: flex-start !important;
   text-align: left !important;
-  max-width: 100% !important;
+  max-width:100% !important;
   min-width: 40px !important;
   width: auto !important;
   min-height: 20px !important;
@@ -3825,22 +3825,22 @@ input:checked + .slider:before {
               <option value="3600000">1小时</option>
             </select>
           </div>
-          <!-- 新增：回复最短等待时间 -->
-          <div class="ratio-item">
-            <div class="ratio-label">
-              <span>回复最短等待时间</span>
-              <span class="ratio-value" id="minDelayValue">1.5秒</span>
-            </div>
-            <input type="range" min="0.1" max="10" step="0.1" value="1.5" class="ratio-slider" id="minDelaySlider">
-          </div>
-          <!-- 新增：回复最长等待时间 -->
-          <div class="ratio-item">
-            <div class="ratio-label">
-              <span>回复最长等待时间</span>
-              <span class="ratio-value" id="maxDelayValue">3.5秒</span>
-            </div>
-            <input type="range" min="0.1" max="10" step="0.1" value="3.5" class="ratio-slider" id="maxDelaySlider">
-          </div>
+          <!-- 新增：回复最短等待时间（单位：秒） -->
+<div class="ratio-item">
+  <div class="ratio-label">
+    <span>回复最短等待时间</span>
+    <span class="ratio-value" id="minDelayValue">1.5秒</span>
+  </div>
+  <input type="range" min="0.1" max="10" step="0.1" value="1.5" class="ratio-slider" id="minDelaySlider">
+</div>
+<!-- 新增：回复最长等待时间（单位：分钟，上限3分钟） -->
+<div class="ratio-item">
+  <div class="ratio-label">
+    <span>回复最长等待时间</span>
+    <span class="ratio-value" id="maxDelayValue">3分钟</span>
+  </div>
+  <input type="range" min="0.1" max="3" step="0.1" value="3" class="ratio-slider" id="maxDelaySlider">
+</div>
         </div>
       </div>
     </div>
@@ -4311,14 +4311,14 @@ class ChatDataManager {
         });
         
         // 默认发送设置
-        this.setStoredData(this.SEND_SETTINGS_KEY, {
-            stickerRatio: 50,
-            phraseRatio: 50,
-            maxMessageCount: 3,
-            autoSendFrequency: 600000,
-            minReplyDelay: 1.5,
-            maxReplyDelay: 3.5
-        });
+this.setStoredData(this.SEND_SETTINGS_KEY, {
+    stickerRatio: 50,
+    phraseRatio: 50,
+    maxMessageCount: 3,
+    autoSendFrequency: 600000,
+    minReplyDelay: 1.5,
+    maxReplyDelayMinutes: 3  // 单位：分钟，上限3分钟
+});
         
         // 默认外观设置
         this.setStoredData(this.APPEARANCE_KEY, {
@@ -4649,15 +4649,25 @@ this.setStoredData(this.POKE_SETTINGS_KEY, {
     
     // ---- 发送设置 ----
     getSendSettings() {
-        return this.getStoredData(this.SEND_SETTINGS_KEY) || {
-            stickerRatio: 50,
-            phraseRatio: 50,
-            maxMessageCount: 3,
-            autoSendFrequency: 600000,
-            minReplyDelay: 1.5,
-            maxReplyDelay: 3.5
-        };
+    const settings = this.getStoredData(this.SEND_SETTINGS_KEY);
+    if (settings) {
+        // 兼容旧数据：如果存在旧的maxReplyDelay（秒），转换为分钟
+        if (settings.maxReplyDelay && !settings.maxReplyDelayMinutes) {
+            settings.maxReplyDelayMinutes = Math.min(3, settings.maxReplyDelay / 60);
+            if (settings.maxReplyDelayMinutes < 0.1) settings.maxReplyDelayMinutes = 3;
+            delete settings.maxReplyDelay;
+        }
+        return settings;
     }
+    return {
+        stickerRatio: 50,
+        phraseRatio: 50,
+        maxMessageCount: 3,
+        autoSendFrequency: 600000,
+        minReplyDelay: 1.5,
+        maxReplyDelayMinutes: 3
+    };
+}
     
     saveSendSettings(settings) {
         return this.setStoredData(this.SEND_SETTINGS_KEY, settings);
@@ -5910,24 +5920,27 @@ this.updateStickerCount();
             autoSendFrequency.value = this.appData.sendSettings.autoSendFrequency || 600000;
         }
         
-        // 新增：最短/最长延迟滑块初始化
-        const minDelaySlider = document.getElementById('minDelaySlider');
-        const maxDelaySlider = document.getElementById('maxDelaySlider');
-        const minDelayValue = document.getElementById('minDelayValue');
-        const maxDelayValue = document.getElementById('maxDelayValue');
+        // 新增：最短/最长延迟滑块初始化（最长等待时间单位：分钟）
+const minDelaySlider = document.getElementById('minDelaySlider');
+const maxDelaySlider = document.getElementById('maxDelaySlider');
+const minDelayValue = document.getElementById('minDelayValue');
+const maxDelayValue = document.getElementById('maxDelayValue');
 
-        if (minDelaySlider && this.appData.sendSettings) {
-            minDelaySlider.value = this.appData.sendSettings.minReplyDelay || 1.5;
-        }
-        if (maxDelaySlider && this.appData.sendSettings) {
-            maxDelaySlider.value = this.appData.sendSettings.maxReplyDelay || 3.5;
-        }
-        if (minDelayValue && this.appData.sendSettings) {
-            minDelayValue.textContent = `${(this.appData.sendSettings.minReplyDelay || 1.5).toFixed(1)}秒`;
-        }
-        if (maxDelayValue && this.appData.sendSettings) {
-            maxDelayValue.textContent = `${(this.appData.sendSettings.maxReplyDelay || 3.5).toFixed(1)}秒`;
-        }
+if (minDelaySlider && this.appData.sendSettings) {
+    minDelaySlider.value = this.appData.sendSettings.minReplyDelay || 1.5;
+}
+if (maxDelaySlider && this.appData.sendSettings) {
+    // 读取存储的值（以分钟为单位），如果没有则默认3分钟
+    const storedMaxDelayMinutes = this.appData.sendSettings.maxReplyDelayMinutes || 3;
+    maxDelaySlider.value = storedMaxDelayMinutes;
+}
+if (minDelayValue && this.appData.sendSettings) {
+    minDelayValue.textContent = `${(this.appData.sendSettings.minReplyDelay || 1.5).toFixed(1)}秒`;
+}
+if (maxDelayValue && this.appData.sendSettings) {
+    const minutes = this.appData.sendSettings.maxReplyDelayMinutes || 3;
+    maxDelayValue.textContent = `${minutes.toFixed(1)}分钟`;
+}
     }
     
     initAppearanceSettingsUI() {
@@ -6654,8 +6667,9 @@ this.updateStickerCount();
         this.renderMessages();
         
         const minDelay = (this.appData.sendSettings?.minReplyDelay || 1.5) * 1000;
-        const maxDelay = (this.appData.sendSettings?.maxReplyDelay || 3.5) * 1000;
-        const delay = minDelay + Math.random() * (maxDelay - minDelay);
+const maxDelayMinutes = this.appData.sendSettings?.maxReplyDelayMinutes || 3;
+const maxDelay = maxDelayMinutes * 60 * 1000;
+const delay = minDelay + Math.random() * (maxDelay - minDelay);
         
         setTimeout(() => {
             this.appData.isTyping = false;
@@ -8354,29 +8368,34 @@ if (themeToggle) {
             });
         }
 
-        // 新增：最长等待时间滑块
-        const maxDelaySlider = document.getElementById('maxDelaySlider');
-        if (maxDelaySlider) {
-            maxDelaySlider.addEventListener('input', (e) => {
-                const val = parseFloat(e.target.value);
-                const display = document.getElementById('maxDelayValue');
-                if (display) display.textContent = `${val.toFixed(1)}秒`;
-                
-                if (!this.appData.sendSettings) this.appData.sendSettings = {};
-                this.appData.sendSettings.maxReplyDelay = val;
-                
-                // 如果最大值小于最小值，自动同步最小值
-                if (this.appData.sendSettings.minReplyDelay > val) {
-                    this.appData.sendSettings.minReplyDelay = val;
-                    const minSlider = document.getElementById('minDelaySlider');
-                    const minDisplay = document.getElementById('minDelayValue');
-                    if (minSlider) minSlider.value = val;
-                    if (minDisplay) minDisplay.textContent = `${val.toFixed(1)}秒`;
-                }
-                
-                this.saveAllData();
-            });
+        // 新增：最长等待时间滑块（单位：分钟）
+const maxDelaySlider = document.getElementById('maxDelaySlider');
+if (maxDelaySlider) {
+    maxDelaySlider.addEventListener('input', (e) => {
+        const valMinutes = parseFloat(e.target.value);
+        const display = document.getElementById('maxDelayValue');
+        if (display) display.textContent = `${valMinutes.toFixed(1)}分钟`;
+        
+        if (!this.appData.sendSettings) this.appData.sendSettings = {};
+        this.appData.sendSettings.maxReplyDelayMinutes = valMinutes;
+        
+        // 将分钟转换为秒用于实际延迟计算
+        const maxDelaySeconds = valMinutes * 60;
+        const minDelaySeconds = this.appData.sendSettings.minReplyDelay || 1.5;
+        
+        // 如果最大值（秒）小于最小值（秒），自动同步最小值
+        if (maxDelaySeconds < minDelaySeconds) {
+            const newMinSeconds = maxDelaySeconds;
+            this.appData.sendSettings.minReplyDelay = newMinSeconds;
+            const minSlider = document.getElementById('minDelaySlider');
+            const minDisplay = document.getElementById('minDelayValue');
+            if (minSlider) minSlider.value = newMinSeconds;
+            if (minDisplay) minDisplay.textContent = `${newMinSeconds.toFixed(1)}秒`;
         }
+        
+        this.saveAllData();
+    });
+}
         
         // 外观设置
         const saveAppearanceBtn = document.getElementById('saveAppearanceBtn');
@@ -8584,8 +8603,9 @@ if (saveThemeBtn) {
         this.renderMessages();
         
         const minDelay = (this.appData.sendSettings?.minReplyDelay || 1.5) * 1000;
-        const maxDelay = (this.appData.sendSettings?.maxReplyDelay || 3.5) * 1000;
-        const delay = minDelay + Math.random() * (maxDelay - minDelay);
+const maxDelayMinutes = this.appData.sendSettings?.maxReplyDelayMinutes || 3;
+const maxDelay = maxDelayMinutes * 60 * 1000;
+const delay = minDelay + Math.random() * (maxDelay - minDelay);
         
         setTimeout(() => {
             this.appData.isTyping = false;
