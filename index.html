@@ -3402,7 +3402,151 @@ input:checked + .slider:before {
   background-blend-mode: darken !important;
   filter: brightness(0.85) !important;
 }
+/* ===== 下一周气泡样式（红绿苹果） ===== */
+.bubble-nextweek .message {
+    box-shadow: none !important;
+    border-width: 0 !important;
+    font-weight: 500 !important;
+    position: relative;
+    overflow: visible !important;
+}
 
+/* 下一周 - 对方消息（接收气泡 - 红色苹果） */
+.bubble-nextweek .message.other {
+    position: relative !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    padding: 8px 35px 8px 35px !important;
+    border-radius: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    text-align: left !important;
+    max-width: 75% !important;
+    min-width: 81px !important;
+    min-height: 57px !important;
+    background-color: transparent !important;
+    background-image: linear-gradient(0deg, rgba(204, 95, 91, 1), rgba(204, 95, 91, 1)) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-blend-mode: multiply !important;
+    box-shadow: 1px 2px 11px rgba(0, 0, 0, 0.18), inset 0px 0px 0px rgba(255, 255, 255, 0), inset 0px 0px 0px rgba(0, 0, 0, 0) !important;
+    color: rgba(255, 255, 255, 1) !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.02em !important;
+    word-break: break-word !important;
+    z-index: 10 !important;
+    border: 0px solid transparent !important;
+    outline: 0px solid rgba(207, 207, 207, 1) !important;
+    outline-offset: 0px !important;
+}
+
+/* 下一周 - 对方消息贴图（红色苹果 - 右侧） */
+.bubble-nextweek .message.other::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 34px !important;
+    height: 34px !important;
+    background-image: url('https://i.postimg.cc/PxPzG8FZ/ping-guo-(xiao).png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    right: 0;
+    top: 0;
+    transform: translate(2px, -8px) rotate(-1deg) !important;
+    z-index: 20 !important;
+    pointer-events: none !important;
+}
+
+/* 下一周 - 自己消息（发送气泡 - 绿色苹果） */
+.bubble-nextweek .message.self {
+    position: relative !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    padding: 8px 35px 8px 35px !important;
+    border-radius: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    text-align: left !important;
+    max-width: 75% !important;
+    min-width: 81px !important;
+    min-height: 57px !important;
+    background-color: transparent !important;
+    background-image: linear-gradient(0deg, rgba(170, 205, 116, 1), rgba(170, 205, 116, 1)) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-blend-mode: multiply !important;
+    box-shadow: 1px 2px 11px rgba(0, 0, 0, 0.18), inset 0px 0px 0px rgba(255, 255, 255, 0), inset 0px 0px 0px rgba(0, 0, 0, 0) !important;
+    color: rgba(255, 255, 255, 1) !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.02em !important;
+    word-break: break-word !important;
+    z-index: 10 !important;
+    border: 0px solid transparent !important;
+    outline: 0px solid rgba(207, 207, 207, 1) !important;
+    outline-offset: 0px !important;
+}
+
+/* 下一周 - 自己消息贴图（绿色苹果 - 左侧） */
+.bubble-nextweek .message.self::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 34px !important;
+    height: 34px !important;
+    background-image: url('https://i.postimg.cc/jSHxRg7T/绿苹果(xiao).png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    left: 0;
+    top: 0;
+    transform: translate(-2px, -7.5px) rotate(-1deg) !important;
+    z-index: 20 !important;
+    pointer-events: none !important;
+}
+
+/* 下一周 - 头像尺寸调整 */
+.bubble-nextweek .message-avatar {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    position: relative !important;
+    overflow: visible !important;
+}
+
+/* 下一周 - 发送方头像间距调整 */
+.bubble-nextweek .message-container.self .message-avatar {
+    margin-left: 10px !important;
+}
+
+/* 下一周 - 消息容器间距 */
+.bubble-nextweek .message-container {
+    align-items: flex-start !important;
+    margin-bottom: 19px !important;
+}
+
+/* 下一周 - 引用消息样式适配 */
+.bubble-nextweek .quoted-message {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    margin-bottom: 6px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 夜间模式下下一周主题适配 */
+.night-mode .bubble-nextweek .message.other,
+.night-mode .bubble-nextweek .message.self {
+    filter: brightness(0.85);
+}
+
+.night-mode .bubble-nextweek .message.other::after,
+.night-mode .bubble-nextweek .message.self::after {
+    filter: brightness(0.85);
+}
 
 </style>
 </head>
@@ -4823,12 +4967,19 @@ this.themePresets = {
         previewGradient: 'linear-gradient(135deg, #e6f0ff 0%, #c4d9ff 100%)',
         bubbleClass: 'bubble-mistyblue'
     },
-    // 👇 新增低饱和粉气泡
+    // 低饱和粉气泡
     lowSaturationPink: {
         id: 'lowSaturationPink',
         name: '低饱和粉',
         previewGradient: 'linear-gradient(135deg, #f8e8e8 0%, #f0dddd 100%)',
         bubbleClass: 'bubble-pink'
+    },
+    // 下一周主题（红绿苹果气泡）
+    nextWeek: {
+        id: 'nextWeek',
+        name: '下一周',
+        previewGradient: 'linear-gradient(135deg, #cc5f5b 0%, #aacd74 100%)',
+        bubbleClass: 'bubble-nextweek'
     }
 };
 
