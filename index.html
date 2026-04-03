@@ -3547,7 +3547,334 @@ input:checked + .slider:before {
 .night-mode .bubble-nextweek .message.self::after {
     filter: brightness(0.85);
 }
+/* ===== 齐司礼气泡样式（青色气泡带贴图） ===== */
+.bubble-qisili .message {
+    box-shadow: none !important;
+    border-width: 0 !important;
+    font-weight: 500 !important;
+    position: relative;
+    overflow: visible !important;
+}
 
+/* 齐司礼 - 对方消息（接收气泡） */
+.bubble-qisili .message.other {
+    position: relative !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    padding: 8px 10px 8px 10px !important;
+    border-radius: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    min-width: 0px !important;
+    min-height: 0px !important;
+    background-color: transparent !important;
+    background-image: linear-gradient(0deg, rgba(167, 211, 223, 1), rgba(167, 211, 223, 1)) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4), inset 0px 0px 0px rgba(167, 211, 223, 0), inset 0px 0px 0px rgba(0, 0, 0, 0) !important;
+    color: #444444 !important;
+    backdrop-filter: blur(7px) !important;
+    -webkit-backdrop-filter: blur(7px) !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.02em !important;
+    word-break: break-word !important;
+    z-index: 10 !important;
+    border: 2px solid rgba(255, 255, 255, 1) !important;
+    outline: 12px solid rgba(255, 255, 15, 0) !important;
+    outline-offset: 20px !important;
+}
+
+/* 齐司礼 - 对方消息右上角贴图 */
+.bubble-qisili .message.other::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 51px !important;
+    height: 51px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/03/peYQcrR.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    top: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    right: 0;
+    transform: translate(47px, -30.5px) rotate(-3deg) !important;
+}
+
+/* 齐司礼 - 对方消息左下角贴图 */
+.bubble-qisili .message.other::before {
+    content: '' !important;
+    position: absolute !important;
+    width: 43px !important;
+    height: 43px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/03/peYQDGF.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    bottom: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    border: none !important;
+    background-color: transparent !important;
+    left: 0;
+    transform: translate(-24px, 35px) rotate(0deg) !important;
+}
+
+/* 齐司礼 - 自己消息（发送气泡） */
+.bubble-qisili .message.self {
+    position: relative !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    padding: 8px 10px 8px 10px !important;
+    border-radius: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    min-width: 0px !important;
+    min-height: 0px !important;
+    background-color: transparent !important;
+    background-image: linear-gradient(0deg, rgba(167, 211, 223, 1), rgba(167, 211, 223, 1)) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4), inset 0px 0px 0px rgba(167, 211, 223, 0), inset 0px 0px 0px rgba(0, 0, 0, 0) !important;
+    color: #444444 !important;
+    backdrop-filter: blur(7px) !important;
+    -webkit-backdrop-filter: blur(7px) !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.02em !important;
+    word-break: break-word !important;
+    z-index: 10 !important;
+    border: 2px solid rgba(255, 255, 255, 1) !important;
+    outline: 12px solid rgba(255, 255, 15, 0) !important;
+    outline-offset: 20px !important;
+}
+
+/* 齐司礼 - 自己消息左上角贴图 */
+.bubble-qisili .message.self::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 51px !important;
+    height: 51px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/03/peYQcrR.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    top: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    left: 0;
+    transform: translate(-35.5px, -30.5px) rotate(-3deg) !important;
+}
+
+/* 齐司礼 - 自己消息右下角贴图 */
+.bubble-qisili .message.self::before {
+    content: '' !important;
+    position: absolute !important;
+    width: 43px !important;
+    height: 43px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/03/peYQDGF.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    bottom: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    border: none !important;
+    background-color: transparent !important;
+    right: 0;
+    transform: translate(18px, 38px) rotate(0deg) !important;
+}
+
+/* 齐司礼主题下消息容器间距调整 */
+.bubble-qisili .message-container {
+    align-items: flex-start !important;
+    margin-bottom: 53px !important;
+}
+
+/* 夜间模式下齐司礼主题适配 */
+.night-mode .bubble-qisili .message.other,
+.night-mode .bubble-qisili .message.self {
+    filter: brightness(0.85);
+}
+
+.night-mode .bubble-qisili .message.other::after,
+.night-mode .bubble-qisili .message.self::after,
+.night-mode .bubble-qisili .message.other::before,
+.night-mode .bubble-qisili .message.self::before {
+    filter: brightness(0.85);
+}
+/* ===== 脱裤子气泡样式（白色虚线边框气泡） ===== */
+.bubble-tuokuzi .message {
+    box-shadow: none !important;
+    border-width: 0 !important;
+    font-weight: 500 !important;
+    position: relative;
+    overflow: visible !important;
+}
+
+/* 脱裤子 - 对方消息（接收气泡） */
+.bubble-tuokuzi .message.other {
+    position: relative !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    padding: 8px 10px 8px 10px !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    background-color: transparent !important;
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1)) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    box-shadow: 2px 0px 0px rgba(0, 0, 0, 0.84), inset 0px 0px 0px rgba(255, 255, 255, 0), inset 0px 0px 0px rgba(0, 0, 0, 0) !important;
+    color: rgba(68, 68, 68, 1) !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.02em !important;
+    word-break: break-word !important;
+    z-index: 10 !important;
+    border: 0px solid transparent !important;
+    outline: 2px dashed rgba(26, 26, 26, 1) !important;
+    outline-offset: 0px !important;
+}
+
+/* 脱裤子 - 对方消息右上角贴图 */
+.bubble-tuokuzi .message.other::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 56px !important;
+    height: 56px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/03/peYQr24.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    top: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    right: 0;
+    transform: translate(51px, -22px) rotate(0deg) !important;
+}
+
+/* 脱裤子 - 对方消息左下角贴图 */
+.bubble-tuokuzi .message.other::before {
+    content: '' !important;
+    position: absolute !important;
+    width: 40px !important;
+    height: 40px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/03/peYQsxJ.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    bottom: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    border: none !important;
+    background-color: transparent !important;
+    left: 0;
+    transform: translate(-31px, 23.5px) rotate(0deg) !important;
+}
+
+/* 脱裤子 - 自己消息（发送气泡） */
+.bubble-tuokuzi .message.self {
+    position: relative !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    padding: 8px 10px 8px 10px !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    background-color: transparent !important;
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1)) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    box-shadow: 2px 0px 0px rgba(0, 0, 0, 0.84), inset 0px 0px 0px rgba(255, 255, 255, 0), inset 0px 0px 0px rgba(0, 0, 0, 0) !important;
+    color: rgba(68, 68, 68, 1) !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.02em !important;
+    word-break: break-word !important;
+    z-index: 10 !important;
+    border: 0px solid transparent !important;
+    outline: 2px dashed rgba(26, 26, 26, 1) !important;
+    outline-offset: 0px !important;
+}
+
+/* 脱裤子 - 自己消息左上角贴图 */
+.bubble-tuokuzi .message.self::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 56px !important;
+    height: 56px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/03/peYQr24.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    top: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    left: 0;
+    transform: translate(-53px, -22px) rotate(0deg) !important;
+}
+
+/* 脱裤子 - 自己消息右下角贴图 */
+.bubble-tuokuzi .message.self::before {
+    content: '' !important;
+    position: absolute !important;
+    width: 40px !important;
+    height: 40px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/03/peYQsxJ.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    bottom: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    border: none !important;
+    background-color: transparent !important;
+    right: 0;
+    transform: translate(40.5px, 23.5px) rotate(0deg) !important;
+}
+
+/* 脱裤子主题下头像间距调整 */
+.bubble-tuokuzi .message-container .message-avatar {
+    margin-right: 0 !important;
+    margin-left: 6px !important;
+}
+
+/* 脱裤子主题下消息容器间距调整 */
+.bubble-tuokuzi .message-container {
+    align-items: flex-start !important;
+    margin-bottom: 18px !important;
+}
+
+/* 夜间模式下脱裤子主题适配 */
+.night-mode .bubble-tuokuzi .message.other,
+.night-mode .bubble-tuokuzi .message.self {
+    filter: brightness(0.9);
+}
+
+.night-mode .bubble-tuokuzi .message.other::after,
+.night-mode .bubble-tuokuzi .message.self::after,
+.night-mode .bubble-tuokuzi .message.other::before,
+.night-mode .bubble-tuokuzi .message.self::before {
+    filter: brightness(0.85);
+}
 </style>
 </head>
 <body>
@@ -4990,7 +5317,22 @@ this.themePresets = {
         name: '下一周',
         previewGradient: 'linear-gradient(135deg, #cc5f5b 0%, #aacd74 100%)',
         bubbleClass: 'bubble-nextweek'
-    }
+    },
+    // 齐司礼主题（青色气泡带贴图）
+    qisili: {
+        id: 'qisili',
+        name: '齐司礼',
+        previewGradient: 'linear-gradient(135deg, #a7d3df 0%, #8bc4d4 100%)',
+        bubbleClass: 'bubble-qisili'
+    },
+    // 脱裤子主题（白色虚线边框气泡）
+tuokuzi: {
+    id: 'tuokuzi',
+    name: '脱裤子',
+    previewGradient: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
+    bubbleClass: 'bubble-tuokuzi'
+}
+    
 };
 
 // 添加主题相关状态
