@@ -3875,6 +3875,119 @@ input:checked + .slider:before {
 .night-mode .bubble-tuokuzi .message.self::before {
     filter: brightness(0.85);
 }
+/* ===== 小齐厨师气泡样式 ===== */
+.bubble-xiaoqichef .message {
+    position: relative !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    font-weight: 500 !important;
+}
+
+/* 小齐厨师 - 自己消息（发送气泡） */
+.bubble-xiaoqichef .message.self {
+    position: relative !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    padding: 8px 35px 8px 35px !important;
+    border-radius: 9px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    min-width: 0px !important;
+    min-height: 41px !important;
+    background-color: transparent !important;
+    background-image: radial-gradient(circle at 48% 55%, rgba(181, 217, 220, 0.8), rgba(255, 255, 255, 1)) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.18), inset 0px 0px 0px rgba(255, 255, 255, 0), inset 0px 0px 0px rgba(0, 0, 0, 0) !important;
+    color: #444444 !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.02em !important;
+    word-break: break-word !important;
+    z-index: 10 !important;
+    border: 0px solid transparent !important;
+    outline: 0px solid rgba(207, 207, 207, 0.59) !important;
+    outline-offset: 0px !important;
+}
+
+/* 小齐厨师 - 自己消息尾巴（左侧） */
+.bubble-xiaoqichef .message.self::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 69px !important;
+    height: 69px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/04/petNcnO.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    bottom: 0;
+    left: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    transform: translate(-36.5px, -21.5px) rotate(2deg) !important;
+}
+
+/* 小齐厨师 - 对方消息（接收气泡） */
+.bubble-xiaoqichef .message.other {
+    position: relative !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    padding: 8px 35px 8px 35px !important;
+    border-radius: 9px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    min-width: 0px !important;
+    min-height: 41px !important;
+    background-color: transparent !important;
+    background-image: radial-gradient(circle at 48% 55%, rgba(181, 217, 220, 0.8), rgba(255, 255, 255, 1)) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.18), inset 0px 0px 0px rgba(255, 255, 255, 0), inset 0px 0px 0px rgba(0, 0, 0, 0) !important;
+    color: #444444 !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.02em !important;
+    word-break: break-word !important;
+    z-index: 10 !important;
+    border: 0px solid transparent !important;
+    outline: 0px solid rgba(207, 207, 207, 0.59) !important;
+    outline-offset: 0px !important;
+}
+
+/* 小齐厨师 - 对方消息尾巴（右侧） */
+.bubble-xiaoqichef .message.other::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 69px !important;
+    height: 69px !important;
+    background-image: url('https://s41.ax1x.com/2026/04/04/petNcnO.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    opacity: 1 !important;
+    bottom: 0;
+    right: 0;
+    z-index: 20 !important;
+    pointer-events: none !important;
+    transform: translate(56.5px, -21.5px) rotate(2deg) !important;
+}
+
+/* 小齐厨师主题下消息容器间距调整 */
+.bubble-xiaoqichef .message-container {
+    align-items: flex-start !important;
+    margin-bottom: 22px !important;
+}
+
+/* 夜间模式下小齐厨师主题适配 */
+.night-mode .bubble-xiaoqichef .message.self,
+.night-mode .bubble-xiaoqichef .message.other {
+    filter: brightness(0.85);
+}
 </style>
 </head>
 <body>
@@ -5331,6 +5444,13 @@ tuokuzi: {
     name: '脱裤子',
     previewGradient: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
     bubbleClass: 'bubble-tuokuzi'
+},
+// 小齐厨师气泡（带厨师帽装饰）
+xiaoqichef: {
+    id: 'xiaoqichef',
+    name: '小齐厨师',
+    previewGradient: 'linear-gradient(135deg, #b5d9dc 0%, #e0f0f0 100%)',
+    bubbleClass: 'bubble-xiaoqichef'
 }
     
 };
