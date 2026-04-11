@@ -6964,14 +6964,19 @@ if (maxDelayValue && this.appData.sendSettings) {
     }
     
     generateTarotReply(source) {
-        if (!this.appData.tarotSettings?.enabled || !this.appData.tarotSettings.customPhrases?.length) {
-            if (source === 'reply') {
-                this.generateReply();
-            } else {
-                this.autoSendMessage();
-            }
-            return;
+    if (!this.appData.tarotSettings?.enabled || !this.appData.tarotSettings.customPhrases?.length) {
+        // 统一降级处理：reply/continue 都走 generateReply，auto 走 autoSendMessage
+        if (source === 'reply' || source === 'continue') {
+            this.generateReply();
+        } else if (source === 'auto') {
+            this.autoSendMessage();
+        } else {
+            // 默认走 generateReply
+            this.generateReply();
         }
+        return;
+    }
+   
         
         const drawCount = Math.min(this.appData.tarotSettings.drawCount || 1, this.appData.tarotSettings.customPhrases.length);
         let availablePhrases = [...this.appData.tarotSettings.customPhrases];
@@ -9061,24 +9066,24 @@ if (saveThemeBtn) {
     }
     
     requestContinueMessages() {
-        this.appData.isTyping = true;
-        this.renderMessages();
-        
-        const minDelay = (this.appData.sendSettings?.minReplyDelay || 1.5) * 1000;
-const maxDelayMinutes = this.appData.sendSettings?.maxReplyDelayMinutes || 3;
-const maxDelay = maxDelayMinutes * 60 * 1000;
-const delay = minDelay + Math.random() * (maxDelay - minDelay);
-        
-        setTimeout(() => {
-            this.appData.isTyping = false;
-            if (this.appData.tarotSettings?.enabled && this.appData.tarotSettings.customPhrases?.length > 0) {
-                this.generateTarotReply('continue');
-                this.showNotification(`对方抽取了塔罗牌进行占卜 🔮`);
-            } else {
-                this.autoSendMessage();
-            }
-        }, delay);
-    }
+    this.appData.isTyping = true;
+    this.renderMessages();
+    
+    const minDelay = (this.appData.sendSettings?.minReplyDelay || 1.5) * 1000;
+    const maxDelayMinutes = this.appData.sendSettings?.maxReplyDelayMinutes || 3;
+    const maxDelay = maxDelayMinutes * 60 * 1000;
+    const delay = minDelay + Math.random() * (maxDelay - minDelay);
+    
+    setTimeout(() => {
+        this.appData.isTyping = false;
+        if (this.appData.tarotSettings?.enabled && this.appData.tarotSettings.customPhrases?.length > 0) {
+            this.generateTarotReply('reply');  // ✅ 改为 'reply'，确保正常发送
+            this.showNotification(`对方抽取了塔罗牌进行占卜 🔮`);
+        } else {
+            this.autoSendMessage();
+        }
+    }, delay);
+}
     
     // ========================
     // 音乐播放器功能
