@@ -5760,17 +5760,30 @@ this.updateStickerCount();
     // ========================
     
     renderMessages() {
-        const messagesArea = document.getElementById('messagesArea');
-        if (!messagesArea) return;
-        
-        messagesArea.innerHTML = '';
-        
-        // 添加"对方正在输入"指示器
-        const typingIndicator = document.getElementById('typingIndicator');
-        if (typingIndicator) {
-            messagesArea.appendChild(typingIndicator);
-            typingIndicator.classList.toggle('active', this.appData.isTyping);
-        }
+    const messagesArea = document.getElementById('messagesArea');
+    if (!messagesArea) return;
+    
+    messagesArea.innerHTML = '';
+    
+    // 重新创建 typingIndicator 并添加到顶部
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'typing-indicator';
+    typingIndicator.id = 'typingIndicator';
+    typingIndicator.innerHTML = `
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <span style="font-size:0.75rem; margin-left:4px;">对方正在输入...</span>
+    `;
+    messagesArea.appendChild(typingIndicator);
+    
+    // 根据状态显示/隐藏
+    if (this.appData.isTyping) {
+        typingIndicator.classList.add('active');
+    } else {
+        typingIndicator.classList.remove('active');
+    }
+    
         
         // 如果没有消息，显示提示
         if (!this.appData.messages || this.appData.messages.length === 0) {
