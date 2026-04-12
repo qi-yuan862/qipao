@@ -3988,6 +3988,33 @@ input:checked + .slider:before {
 .night-mode .bubble-xiaoqichef .message.other {
     filter: brightness(0.85);
 }
+/* 日期分隔线样式 */
+.date-divider {
+    text-align: center;
+    margin: 16px 0 12px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-divider span {
+    background: rgba(138, 127, 141, 0.2);
+    backdrop-filter: blur(8px);
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    color: var(--text);
+    letter-spacing: 1px;
+    border: 0.5px solid rgba(138, 127, 141, 0.3);
+}
+
+/* 夜间模式下的日期分隔线 */
+.night-mode .date-divider span {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    border-color: rgba(255, 255, 255, 0.2);
+}
 </style>
 </head>
 <body>
@@ -5784,9 +5811,44 @@ this.updateStickerCount();
             `;
             messagesArea.appendChild(emptyMessage);
         } else {
-            // 渲染所有消息
-            this.appData.messages.forEach(msg => {
-                const messageContainer = document.createElement('div');
+            // 渲染所有消息（带日期分组）
+let lastDate = null;
+
+this.appData.messages.forEach(msg => {
+    // 获取消息的日期
+    const msgDate = new Date();
+    // 如果消息有 time 字段（格式 HH:MM:SS），需要结合当前日期
+    // 由于消息只存了时间字符串，我们需要从消息对象中获取完整时间戳
+    // 建议在消息中添加 timestamp 字段，这里做兼容处理
+    
+    let messageDate = null;
+    if (msg.timestamp) {
+        messageDate = new Date(msg.timestamp);
+    } else if (msg.date) {
+        messageDate = new Date(msg.date);
+    } else {
+        // 如果没有保存日期，使用当前日期（这种情况应该避免）
+        messageDate = new Date();
+    }
+    
+    const currentDateStr = messageDate.toLocaleDateString('zh-CN', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    
+    // 如果日期变化，插入日期分隔线
+    if (lastDate !== currentDateStr) {
+        const dateDivider = document.createElement('div');
+        dateDivider.className = 'date-divider';
+        dateDivider.innerHTML = `<span>${currentDateStr}</span>`;
+        messagesArea.appendChild(dateDivider);
+        lastDate = currentDateStr;
+    }
+    
+    // 原有的消息创建代码继续...
+    const messageContainer = document.createElement('div');
+    
                 messageContainer.className = `message-container ${msg.sender}`;
                 
                 // 头像
@@ -6770,13 +6832,14 @@ if (maxDelayValue && this.appData.sendSettings) {
         if (!text && !this.appData.quotedMessage) return;
         
         const userMessage = {
-            id: this.dataManager.generateMessageId(),
-            text: text,
-            sender: 'self',
-            time: this.getCurrentTime(),
-            read: false,
-            quotedMessage: this.appData.quotedMessage ? {...this.appData.quotedMessage} : null
-        };
+    id: this.dataManager.generateMessageId(),
+    text: text,
+    sender: 'self',
+    time: this.getCurrentTime(),
+    timestamp: new Date().toISOString(),  // ← 添加这一行
+    read: false,
+    quotedMessage: this.appData.quotedMessage ? {...this.appData.quotedMessage} : null
+};
         
         this.appData.messages.push(userMessage);
         this.renderMessages();
@@ -7175,14 +7238,15 @@ const delay = minDelay + Math.random() * (maxDelay - minDelay);
                 
                 const firstMsg = messagesToSend[0];
                 const firstMessage = {
-                    id: this.dataManager.generateMessageId(),
-                    isSticker: firstMsg.type === 'sticker',
-                    [firstMsg.type === 'sticker' ? 'stickerData' : 'text']: firstMsg.data,
-                    sender: 'other',
-                    time: this.getCurrentTime(),
-                    read: true,
-                    groupMember: firstGroupMember
-                };
+    id: this.dataManager.generateMessageId(),
+    isSticker: firstMsg.type === 'sticker',
+    [firstMsg.type === 'sticker' ? 'stickerData' : 'text']: firstMsg.data,
+    sender: 'other',
+    time: this.getCurrentTime(),
+    timestamp: new Date().toISOString(),  // ← 添加这一行
+    read: true,
+    groupMember: firstGroupMember
+};
                 
                 if (Math.random() < 0.2) {
                     const recentUserMessages = this.appData.messages
